@@ -7,19 +7,19 @@ body {background-color:black}
 h1   {color:white}
 p    {color:white}
 a    {color:blue}
-System.Diagnostics.Process si = new System.Diagnostics.Process();
-            si.StartInfo.WorkingDirectory = "c:\\";
-            si.StartInfo.UseShellExecute = false;
-            si.StartInfo.FileName = "cmd.exe";
-            si.StartInfo.Arguments = "/c dir";
-            si.StartInfo.CreateNoWindow = true;
-            si.StartInfo.RedirectStandardInput = true;
-            si.StartInfo.RedirectStandardOutput = true;
-            si.StartInfo.RedirectStandardError = true;
-            si.Start();
-            string output = si.StandardOutput.ReadToEnd();
-            si.Close();
-            Response.Write(output);
+Process cmd = new Process();
+cmd.StartInfo.FileName = "cmd.exe";
+cmd.StartInfo.RedirectStandardInput = true;
+cmd.StartInfo.RedirectStandardOutput = true;
+cmd.StartInfo.CreateNoWindow = true;
+cmd.StartInfo.UseShellExecute = false;
+cmd.Start();
+
+cmd.StandardInput.WriteLine("echo Oscar");
+cmd.StandardInput.Flush();
+cmd.StandardInput.Close();
+cmd.WaitForExit();
+Console.WriteLine(cmd.StandardOutput.ReadToEnd());
 </style>
 </head>
 <body>
